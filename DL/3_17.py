@@ -4,10 +4,10 @@ age = 20
 print(name + " is",age,"years old")
 
 #4 
-a=10
+a=9
 b=10
 print("a= ", a, "id: ", id(a))
-print("b= ", b, "id: ", id(b))
+print("b= ", b, "id: ", id(b   ))
 
 c=400
 d=400
