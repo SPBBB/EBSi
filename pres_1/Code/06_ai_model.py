@@ -1,12 +1,12 @@
-import tensorflow  # TensorFlow is required for Keras to work
+import tensorflow as tf  # TensorFlow is required for Keras to work
 import cv2  # opencv-python is required
-import numpy as np
+import numpy 
 
 # Disable scientific notation for clarity
-np.set_printoptions(suppress=True)
+numpy.set_printoptions(suppress=True)
 
 # Load the model
-model = tensorflow.keras.models.load_model("./model_4_c200_m200/keras_model.h5", compile=False)
+model = tf.keras.models.load_model("./model_4_c200_m200/keras_model.h5", compile=False)
 
 # Load the labels
 class_names = open("./model_4_c200_m200/labels.txt", "r").readlines()
@@ -22,26 +22,26 @@ while True:
     image = cv2.resize(image_, (224, 224), interpolation=cv2.INTER_AREA)
 
     # Make the image a numpy array and reshape it to the models input shape.
-    image = np.asarray(image, dtype=np.float32).reshape(1, 224, 224, 3)
+    image = numpy.asarray(image, dtype=numpy.float32).reshape(1, 224, 224, 3)
 
     # Normalize the image array
     image = (image / 127.5) - 1
 
     # Predicts the model
     prediction = model.predict(image)
-    index = np.argmax(prediction)
+    index = numpy.argmax(prediction)
     class_name = class_names[index]
     confidence_score = prediction[0][index]
 
     # Show the image in a window
     image_    = cv2.putText(image_, class_name[:-2], (20, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,0), 2)
-    image_    = cv2.putText(image_, str(np.round(confidence_score * 100))[:-2]+"%", (200, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,0), 2)
+    image_    = cv2.putText(image_, str(numpy.round(confidence_score * 100))[:-2]+"%", (200, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,0), 2)
 
     cv2.imshow("Webcam Image", image_)
 
     # Print prediction and confidence score
     print("Class:", class_name[2:], end="")
-    print("Confidence Score:", str(np.round(confidence_score * 100))[:-2], "%")
+    print("Confidence Score:", str(numpy.round(confidence_score * 100))[:-2], "%")
 
     # Listen to the keyboard for presses.
     # Press 'q' to exit

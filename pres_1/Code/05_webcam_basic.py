@@ -34,5 +34,5 @@ while True:
     # increa the count
     count += 1
 
-cap.release()                      # Release the camera
+camera.release()                      # Release the camera
 cv2.destroyAllWindows()
